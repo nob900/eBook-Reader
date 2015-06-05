@@ -25,3 +25,9 @@ Edit [manifest file](manifest.webapp), find the "developer" key and fill the fol
 3. Get an icon (128x128 PNG) and place it into file "images/icon-128.png"
 
 For convenience, a "__APPNAME__" macro has been placed all around the files so you can use sed to name your application.
+
+# Dependencies
+
+All runtime dependencies are provided with the template, located in the [lib folder](lib).
+
+* [jQuery](https://jquery.com/) 2.1.4
