@@ -1,0 +1,19 @@
+{
+  "version": "0.1",
+  "name": "__APPNAME__",
+  "description": "",
+  "launch_path": "/index.html",
+  "type": "privileged",
+  "default_locale": "en",
+  "icons": {
+    "128": "/images/icon-128.png"
+  },
+  "developer": {
+    "name": "",
+    "url": ""
+  },
+  "permissions": {
+  },
+  "installs_allowed_from": ["*"]
+}
+
