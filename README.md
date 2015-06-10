@@ -31,3 +31,4 @@ For convenience, a "__APPNAME__" macro has been placed all around the files so y
 All runtime dependencies are provided with the template, located in the [lib folder](lib).
 
 * [jQuery](https://jquery.com/) 2.1.4
+* [Handlebars.js](http://handlebarsjs.com/) 3.0.3
