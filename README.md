@@ -33,3 +33,4 @@ All runtime dependencies are provided with the template, located in the [lib fol
 * [jQuery](https://jquery.com/) 2.1.4
 * [Handlebars.js](http://handlebarsjs.com/) 3.0.3
 * [Underscore.js](http://underscorejs.org/) 1.8.3
+* [Backbone.js](http://backbonejs.org/) 1.2.1
