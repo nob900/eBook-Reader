@@ -48,6 +48,12 @@ Adding views implies the following steps:
 2. Create a Backbone view in a dedicated file (see [views/main.js](main view example))
 3. Create a HTML template in a dedicated file (see [views/main.html](main view template example))
 
+## Using Firefox OS interface elements
+
+Firefox OS interface is named Gaia. Some of its standardized elements are shipped with this application template under the [styles/](styles/) folder.
+
+Documentation about these "Building Blocks" can be found on [Mozilla Wiki](https://developer.mozilla.org/en-US/Apps/Design/Firefox_OS_building_blocks#Firefox_OS_Building_Blocks).
+
 # Building
 
 Building process currently only consists in precompiling Handlebars templates. Just run "make" ;-)
