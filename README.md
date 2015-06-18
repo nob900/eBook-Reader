@@ -54,6 +54,12 @@ Firefox OS interface is named Gaia. Some of its standardized elements are shippe
 
 Documentation about these "Building Blocks" can be found on [Mozilla Wiki](https://developer.mozilla.org/en-US/Apps/Design/Firefox_OS_building_blocks#Firefox_OS_Building_Blocks).
 
+## Making it international
+
+The application template comes with [webL10n i18n/l10n library](https://github.com/fabi1cazenave/webL10n/blob/master/l10n.js) making the application translatable.
+
+Documentation about the localization procedure can be found on [Mozilla Wiki](https://developer.mozilla.org/en-US/Apps/Build/Localization/Getting_started_with_app_localization#The_localization_procedure).
+
 # Building
 
 Building process currently only consists in precompiling Handlebars templates. Just run "make" ;-)
@@ -74,3 +80,4 @@ All runtime dependencies are provided with the template, located in the [lib fol
 * [Underscore.js](http://underscorejs.org/) 1.8.3
 * [Backbone.js](http://backbonejs.org/) 1.2.1
 * [Require.js](http://requirejs.org/) 2.1.18
+* [webL10n i18n/l10n library](https://github.com/fabi1cazenave/webL10n/blob/master/l10n.js) commit 7d351d51b1f865fa02b447b5dd3d0965501eb35e

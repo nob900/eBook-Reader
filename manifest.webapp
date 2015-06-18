@@ -5,6 +5,12 @@
   "launch_path": "/index.html",
   "type": "privileged",
   "default_locale": "en",
+  "locales": {
+    "fr": {
+      "name": "__APPNAME__",
+      "desciption": ""
+    }
+  },
   "icons": {
     "128": "/images/icon-128.png"
   },
