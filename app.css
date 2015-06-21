@@ -9,9 +9,12 @@ html, body {
 	background-color: #fff;
 }
 
-body {
+body > div {
 	display: flex;
 	flex-direction: column;
+	height: 100%;
+	width: 100%;
+	position: absolute;
 }
 
 section.view {
@@ -20,4 +23,40 @@ section.view {
 	padding: 0 1.5rem;
 	overflow-y: auto;
 	font-size: 1.8rem;
+}
+
+div.forward {
+	animation: rightToCurrent 0.4s forwards;
+}
+
+div.forward.leave {
+	animation: currentToLeft 0.4s forwards;
+}
+
+div.backward {
+	animation: leftToCurrent 0.4s backwards;
+}
+
+div.backward.leave {
+	animation: currentToRight 0.4s backwards;
+}
+
+@keyframes currentToLeft {
+	0%   { transform: translateX(0); }
+	100% { transform: translateX(-100%); }
+}
+
+@keyframes currentToRight {
+	0%   { transform: translateX(0); }
+	100% { transform: translateX(100%); }
+}
+
+@keyframes rightToCurrent {
+	0%   { transform: translateX(100%); }
+	100% { transform: translateX(0); }
+}
+
+@keyframes leftToCurrent {
+	0%   { transform: translateX(-100%); }
+	100% { transform: translateX(0); }
 }
