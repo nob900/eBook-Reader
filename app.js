@@ -11,7 +11,7 @@ function () {
 		},
 
 		main: function () {
-			debug && console.log ('[__APPNAME__::router] Switching to main');
+			debug && console.log ('[eBook-Reader::router] Switching to main');
 			var _this = this;
 			require (['views/main'], function (View) {
 				var main = new View ();

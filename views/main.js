@@ -3,7 +3,7 @@ define ([
 
 function () {
 	var debug = false;
-	debug && console.log ('[__APPNAME__::main] Loading view');
+	debug && console.log ('[eBook-Reader::main] Loading view');
 
 	var View = Backbone.View.extend ({
 		id: 'main',
