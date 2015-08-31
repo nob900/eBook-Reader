@@ -17,7 +17,7 @@ function () {
 				main.render ();
 				_this.goto (main);
 			});
-		}
+		},
 
 		// Handle view transition, switch from previous view (if any) to new view then drop previous view DOM contents
 		goto: function (view) {
