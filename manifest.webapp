@@ -20,6 +20,7 @@
     "url": "http://pipoprods.free.fr"
   },
   "permissions": {
+    "device-storage:sdcard": {"access": "readonly"}
   },
   "installs_allowed_from": ["*"]
 }

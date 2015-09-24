@@ -1,0 +1,20 @@
+<section role="region" class="library">
+	<header>
+		<menu type="toolbar">
+			<button data-icon="reload"></button>
+		</menu>
+		<h1 data-l10n-id="library-view-title">Library</h1>
+	</header>
+</section>
+<section class="view" data-type="list">
+	<ul class="library">
+		{{#each data}}
+			<li>
+				<a href="#viewer">
+					<div class="filename">{{filename name}}</div>
+					<div class="dirname">{{dirname name}}</div>
+				</a>
+			</li>
+		{{/each}}
+	</ul>
+</section>

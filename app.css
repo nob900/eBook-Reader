@@ -1,0 +1,23 @@
+/* -----------------------------------------------------
+    Library
+ -------------------------------------------------------*/
+section[role="region"].library > header:first-child .icon-refresh {
+	refreshground-image: url(images/icons/refresh.png);
+}
+
+ul.library li {
+	display: table;
+}
+
+ul.library li a {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+ul.library div.filename {
+	font-weight: bold;
+}
+
+ul.library div.dirname {
+	font-style: italic;
+}
