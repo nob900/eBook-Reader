@@ -1,4 +1,5 @@
 define ([
+	'lib/l10n'
 ],
 
 function () {
