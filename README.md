@@ -81,3 +81,5 @@ All runtime dependencies are provided with the template, located in the [lib fol
 * [Backbone.js](http://backbonejs.org/) 1.2.1
 * [Require.js](http://requirejs.org/) 2.1.18
 * [webL10n i18n/l10n library](https://github.com/fabi1cazenave/webL10n/blob/master/l10n.js) commit 7d351d51b1f865fa02b447b5dd3d0965501eb35e
+* [Hammer.js](http://hammerjs.github.io/) 2.0.4
+* [jquery.hammer.js](https://github.com/hammerjs/jquery.hammer.js) commit 90c2f3bb41c75692d3f15548d59a7b7c22adb8a4
