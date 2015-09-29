@@ -1,0 +1,24 @@
+<div class="viewer-controls skin-dark">
+	<section role="region" class="viewer">
+		<header>
+			<a href="#"><span class="icon icon-back">back</span></a>
+			<h1 data-l10n-id="toc-view-title">Table of contents</h1>
+		</header>
+	</section>
+	<section class="view toc" data-type="list">
+		<ul class="toc">
+			{{#each data}}
+				<li><a href="#load/{{src}}">{{title}}</a></li>
+				{{#each children}}
+					<li class="child"><a href="#load/{{src}}">{{title}}</a></li>
+				{{/each}}
+			{{/each}}
+		</ul>
+	</section>
+</div>
+<section class="view" data-type="viewer">
+	<p class="loading" data-l10n-id="viewer-loading-notice">Loading book, please wait...</p>
+	<div class="book-contents-container">
+		<div class="book-contents"></div>
+	</div>
+</section>

@@ -21,3 +21,82 @@ ul.library div.filename {
 ul.library div.dirname {
 	font-style: italic;
 }
+
+/* -----------------------------------------------------
+    Viewer
+ -------------------------------------------------------*/
+#viewer div.viewer-controls {
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 99;
+	background-color: white;
+}
+
+#viewer p.loading {
+	position: absolute;
+	top: 50%;
+	margin-top: -10%;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	left: 15%;
+	right: 15%;
+	text-align: center;
+}
+
+section.view[data-type="viewer"] {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	height: 100%;
+}
+
+div.book-contents-container {
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	right: 15px;
+	bottom: 15px;
+}
+
+div.book-contents {
+	text-align: justify;
+	-moz-column-fill: balance;
+	column-fill: balance;
+	-moz-column-gap: 15px;
+	column-gap: 15px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	overflow: hidden;
+}
+
+div.book-contents img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+ul.toc {
+	font-size: 80%;
+}
+
+ul.toc li {
+	display: table;
+}
+
+ul.toc li a {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+ul.toc li.child {
+	padding-left: 1em;
+}

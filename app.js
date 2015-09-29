@@ -7,7 +7,9 @@ function () {
 
 	var Router = Backbone.Router.extend ({
 		routes: {
-			'': 'library'
+			'': 'library',
+			'viewer': 'viewer',
+			'load/*src': 'load'
 		},
 
 		library: function () {
@@ -17,7 +19,7 @@ function () {
 				require (['views/library'], function (View) {
 					_this.library_view = new View ();
 					// eBook select callback
-					_this.library_view.onSelect (function (selected, $elem) {
+					_this.library_view.on ('select', function (selected, $elem) {
 						_this.currentBook = selected;
 					});
 					_this.library_view.render ();
@@ -28,6 +30,27 @@ function () {
 				_this.library_view.render ();
 				_this.goto (_this.library_view);
 			}
+		},
+
+		viewer: function () {
+			var _this = this;
+			if (_this.viewer_view === undefined) {
+				// No viewer created yet, create one
+				require (['views/viewer'], function (View) {
+					_this.viewer_view = new View (_this.currentBook);
+					_this.goto (_this.viewer_view);
+				});
+			}
+			else {
+				// Viewer already created, reuse it
+				_this.viewer_view.initialize (_this.currentBook);
+				_this.goto (_this.viewer_view);
+			}
+		},
+
+		load: function (src) {
+			var _this = this;
+			_this.viewer_view.model.load (src);
 		},
 
 		// Handle view transition, switch from previous view (if any) to new view then drop previous view DOM contents

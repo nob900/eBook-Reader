@@ -16,6 +16,7 @@ function () {
 	var View = Backbone.View.extend ({
 		id: 'library',
 		template: Handlebars.templates['library.html'],
+		callbacks: {},
 
 		initialize: function () {
 			var _this = this;
@@ -53,9 +54,22 @@ function () {
 				_this.model.reload ();
 			});
 
+			// Handle eBook selection
+			if (_this.callbacks.select !== undefined) {
+				$(this.el).find ('ul.library li').click (function () {
+					var selected = _this.model.get ('data')[$(this).index ()];
+					_this.callbacks.select (selected, $(this));
+				});
+			}
+
 			debug && console.log ('[eBook-Reader::libraryView::render] Leaving');
 
 			return (this);
+		},
+
+		// Register callbacks
+		on: function (event, callback) {
+			this.callbacks[event] = callback;
 		}
 	});
 	return (View);
