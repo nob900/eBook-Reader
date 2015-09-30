@@ -3,6 +3,7 @@
   "name": "eBook-Reader",
   "description": "",
   "launch_path": "/index.html",
+  "orientation": "portrait",
   "type": "privileged",
   "default_locale": "en",
   "locales": {
