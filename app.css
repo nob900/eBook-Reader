@@ -117,3 +117,16 @@ div.progress {
 	left: 0px;
 	bottom: 0px;
 }
+
+/* Multi-column bug. */
+/* Unfortunately, column layout (especially positions) is not properly initialized until we show second column */
+/* so we have to prepend a div (class "padding") to force first page to be actually second page. */
+div.padding {
+	float: left;
+	width: 100%;
+	height: 100%;
+}
+
+div.clear-both {
+	clear: both;
+}

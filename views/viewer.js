@@ -105,6 +105,11 @@ function (eBook) {
 			// Insert book contents into viewer
 			$(this.el).find ('div.book-contents').empty ().append (this.model.get ('contents')).append ('<div class="end-placeholder"></div>');
 
+			// Multi-column bug.
+			// Unfortunately, column layout (especially positions) is not properly initialized until we show second column
+			// so we have to prepend a div (class "padding") to force first page to be actually second page.
+			$(this.el).find ('div.book-contents').prepend ('<div class="padding"></div><div class="clear-both"></div>');
+
 			// Jump to anchor
 			_this.jumpTo (_this.model.get ('anchor'));
 
@@ -129,7 +134,7 @@ function (eBook) {
 			var position = current;
 			switch (direction) {
 				case 'previous':
-					if (current >= width) {
+					if (current >= 2*width) {	// "2*" because of multi-column bug
 						position -= width;
 					}
 					break;
@@ -143,14 +148,22 @@ function (eBook) {
 			$(this.el).find ('div.book-contents').css ({left: -position});
 
 			// Update progress
-			this.progress (position);
+			this.progress (position-width);	// "-width" because of multi-column bug
 		},
 
 		// Jump to given anchor in current contents
 		jumpTo: function (anchor) {
 			debug && console.log ('[eBook-Reader::eBookView::jumpTo] Jumping to anchor: ' + anchor);
 
-			var position = 0;
+			// Page width
+			var width = $(this.el).find ('div.book-contents-container').width ()
+						+ parseInt ($(this.el).find ('div.book-contents').css ('column-gap').replace (/px/, ''), 10);
+
+			// Multi-column bug.
+			// Unfortunately, column layout (especially positions) is not properly initialized until we show second column
+			// so we have to prepend a div (class "padding") to force first page to be actually second page.
+			var position = width;
+
 			if (anchor !== undefined) {
 				// Set absolute value for anchor position (will be negated later)
 				position = $(this.el).find ('div.book-contents #' + anchor).position ()['left'] + parseInt ($(this.el).find ('div.book-contents').css ('column-gap').replace (/px/, ''), 10);
@@ -158,13 +171,21 @@ function (eBook) {
 			}
 
 			$(this.el).find ('div.book-contents').css ('left', -position);
-			this.progress (position);
+			this.progress (position-width);	// "-width" because of multi-column bug
 		},
 
 		// Update progress indicator
 		progress: function (position) {
 			var fullwidth = $('div.end-placeholder').position ()['left'];
-			$('div.progress').css ({width: Math.ceil (100 * position / fullwidth) + '%'});
+
+			// Multi-column bug.
+			// Unfortunately, column layout (especially positions) is not properly initialized until we show second column
+			// so we have to prepend a div (class "padding") to force first page to be actually second page.
+			var width = $(this.el).find ('div.book-contents-container').width ()
+						+ parseInt ($(this.el).find ('div.book-contents').css ('column-gap').replace (/px/, ''), 10);
+			fullwidth -= width;
+
+			$('div.progress').css ({width: Math.ceil (100 * (position) / fullwidth) + '%'});
 		}
 	});
 	return (View);
