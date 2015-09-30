@@ -103,7 +103,7 @@ function (eBook) {
 			debug && console.log ('[eBook-Reader::eBookView::update] Entering');
 
 			// Insert book contents into viewer
-			$(this.el).find ('div.book-contents').empty ().append (this.model.get ('contents'));
+			$(this.el).find ('div.book-contents').empty ().append (this.model.get ('contents')).append ('<div class="end-placeholder"></div>');
 
 			// Jump to anchor
 			_this.jumpTo (_this.model.get ('anchor'));
@@ -134,11 +134,16 @@ function (eBook) {
 					}
 					break;
 				case 'next':
-					position += width;	// TODO handle end of stream
+					if ((position + width) <= Math.ceil ($(this.el).find ('div.end-placeholder').position ()['left'])) {
+						position += width;
+					}
 					break;
 			}
 			debug && console.log ('[eBook-Reader::eBookView::changePage] Scroll to page position: ' + position + ' (offset: ' + width + ')');
 			$(this.el).find ('div.book-contents').css ({left: -position});
+
+			// Update progress
+			this.progress (position);
 		},
 
 		// Jump to given anchor in current contents
@@ -153,6 +158,13 @@ function (eBook) {
 			}
 
 			$(this.el).find ('div.book-contents').css ('left', -position);
+			this.progress (position);
+		},
+
+		// Update progress indicator
+		progress: function (position) {
+			var fullwidth = $('div.end-placeholder').position ()['left'];
+			$('div.progress').css ({width: Math.ceil (100 * position / fullwidth) + '%'});
 		}
 	});
 	return (View);
