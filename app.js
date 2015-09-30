@@ -50,7 +50,7 @@ function () {
 
 		load: function (src) {
 			var _this = this;
-			_this.viewer_view.model.load (src);
+			_this.viewer_view.model.load (unescape (src));
 		},
 
 		// Handle view transition, switch from previous view (if any) to new view then drop previous view DOM contents

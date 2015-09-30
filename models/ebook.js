@@ -11,7 +11,9 @@ function () {
 
 	var Model = Backbone.Model.extend ({
 		toc:      undefined,
+		src:      undefined,
 		contents: undefined,
+		anchor:   undefined,
 		loading:  false,
 
 		initialize: function (file) {
@@ -34,18 +36,29 @@ function () {
 				_this.load (book.getContents ()[0]['src']);
 			});
 
+			// Source (book contents file) changed, fetch data
+			_this.on ('change:src', function () {
+				_this.set ('loading', true);
+				_this.book.getComponent (_this.get ('src'), function (data) {
+					debug && console.log ('[eBook-Reader::eBookModel::load] Got contents');
+					_this.set ('contents', data);
+					_this.set ('loading', false);
+				});
+			});
+
 			debug && console.log ('[eBook-Reader::eBookModel::initialize] Leaving');
 		},
 
 		// Load given part of book
 		load: function (src) {
 			var _this = this;
-			_this.set ('loading', true);
-			_this.book.getComponent (src, function (data) {
-				debug && console.log ('[eBook-Reader::eBookModel::load] Got contents');
-				_this.set ('contents', data);
-				_this.set ('loading', false);
-			});
+			_this.set ('src', src.replace (/#.*/, ''));
+			if (src.match (/#/)) {
+				_this.set ('anchor', src.replace (/.*#/, ''))
+			}
+			else {
+				_this.set ('anchor', undefined);
+			}
 		}
 	});
 	return (Model);

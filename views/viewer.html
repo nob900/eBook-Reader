@@ -8,9 +8,9 @@
 	<section class="view toc" data-type="list">
 		<ul class="toc">
 			{{#each data}}
-				<li><a href="#load/{{src}}">{{title}}</a></li>
+				<li><a href="#load/{{escape src}}">{{title}}</a></li>
 				{{#each children}}
-					<li class="child"><a href="#load/{{src}}">{{title}}</a></li>
+					<li class="child"><a href="#load/{{escape src}}">{{title}}</a></li>
 				{{/each}}
 			{{/each}}
 		</ul>

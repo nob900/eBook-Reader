@@ -6,6 +6,10 @@ function (eBook) {
 	var debug = false;
 	debug && console.log ('[eBook-Reader::eBookView] Loading view');
 
+	Handlebars.registerHelper ('escape', function (val) {
+		return (escape (val));
+	});
+
 	var View = Backbone.View.extend ({
 		id: 'viewer',
 		template: Handlebars.templates['viewer.html'],
@@ -26,6 +30,11 @@ function (eBook) {
 			// Update contents once loaded
 			_this.model.on ('change:contents', function () {
 				_this.update ();
+			});
+
+			// Jump to part on anchor change
+			_this.model.on ('change:anchor', function () {
+				_this.jumpTo (_this.model.get ('anchor'));
 			});
 
 			// Toggle "loading" notice
@@ -96,9 +105,8 @@ function (eBook) {
 			// Insert book contents into viewer
 			$(this.el).find ('div.book-contents').empty ().append (this.model.get ('contents'));
 
-			// Show beginning of section
-			_this.page = 0;
-			$(this.el).find ('div.book-contents').css ({left: 0});
+			// Jump to anchor
+			_this.jumpTo (_this.model.get ('anchor'));
 
 			// Hide viewer controls
 			$(this.el).find ('div.viewer-controls').slideUp ();
@@ -109,19 +117,42 @@ function (eBook) {
 		// Go to next or previous page
 		changePage: function (direction) {
 			debug && console.log ('[eBook-Reader::eBookView::changePage] Going to ' + direction + ' page');
+
+			// Current position (absolute value)
+			var current = Math.abs (parseInt ($(this.el).find ('div.book-contents').css ('left').replace (/px/, ''), 10));
+
+			// Page width
+			var width = $(this.el).find ('div.book-contents-container').width ()
+						+ parseInt ($(this.el).find ('div.book-contents').css ('column-gap').replace (/px/, ''), 10);
+
+			// Set absolute value for new position (will be negated later)
+			var position = current;
 			switch (direction) {
 				case 'previous':
-					if (this.page > 0) {
-						this.page--;
+					if (current >= width) {
+						position -= width;
 					}
 					break;
 				case 'next':
-					this.page++;
+					position += width;	// TODO handle end of stream
 					break;
 			}
-			var position = - this.page * ($(this.el).find ('div.book-contents-container').width () + 20);
-			debug && console.log ('[eBook-Reader::eBookView::changePage] Scroll to page ' + this.page + ', position: ' + position);
-			$(this.el).find ('div.book-contents').css ({left: position});
+			debug && console.log ('[eBook-Reader::eBookView::changePage] Scroll to page position: ' + position + ' (offset: ' + width + ')');
+			$(this.el).find ('div.book-contents').css ({left: -position});
+		},
+
+		// Jump to given anchor in current contents
+		jumpTo: function (anchor) {
+			debug && console.log ('[eBook-Reader::eBookView::jumpTo] Jumping to anchor: ' + anchor);
+
+			var position = 0;
+			if (anchor !== undefined) {
+				// Set absolute value for anchor position (will be negated later)
+				position = $(this.el).find ('div.book-contents #' + anchor).position ()['left'] + parseInt ($(this.el).find ('div.book-contents').css ('column-gap').replace (/px/, ''), 10);
+				debug && console.log ('[eBook-Reader::eBookView::jumpTo] Anchor position: ' + position);
+			}
+
+			$(this.el).find ('div.book-contents').css ('left', -position);
 		}
 	});
 	return (View);
