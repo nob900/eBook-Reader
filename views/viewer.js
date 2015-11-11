@@ -14,6 +14,8 @@ function (eBook) {
 		id: 'viewer',
 		template: Handlebars.templates['viewer.html'],
 		page: 0,
+		callbacks: {
+		},
 
 		initialize: function (file) {
 			var _this = this;
@@ -149,6 +151,23 @@ function (eBook) {
 
 			// Update progress
 			this.progress (position-width);	// "-width" because of multi-column bug
+
+			// Keep track of current position
+			if (this.callbacks.changepage) {
+				this.callbacks.changepage (position);
+			}
+		},
+
+		// Jump to absolute position
+		jumpToPosition: function (position) {
+			$(this.el).find ('div.book-contents').css ({left: -position});
+
+			// Page width
+			var width = $(this.el).find ('div.book-contents-container').width ()
+						+ parseInt ($(this.el).find ('div.book-contents').css ('column-gap').replace (/px/, ''), 10);
+
+			// Update progress
+			this.progress (position-width);	// "-width" because of multi-column bug
 		},
 
 		// Jump to given anchor in current contents
@@ -186,6 +205,11 @@ function (eBook) {
 			fullwidth -= width;
 
 			$('div.progress').css ({width: Math.ceil (100 * (position) / fullwidth) + '%'});
+		},
+
+		// Register callbacks
+		on: function (event, callback) {
+			this.callbacks[event] = callback;
 		}
 	});
 	return (View);
