@@ -40,6 +40,9 @@ function () {
 			$('body').append (view.$el.addClass ($('body').attr ('class')));
 			this.currentPage = next;
 
+			// Trigger translation on DOM change
+			observer.observe (view.$el.get ()[0], { attributes: true, childList: true, characterData: true });
+
 			// Forget current transition direction
 			delete (app.direction);
 		},
@@ -49,6 +52,16 @@ function () {
 			window.history.back ();
 		}
 	});
+
+	// Trigger translation on DOM change
+	var observer = new MutationObserver(function(mutations) {
+		mutations.forEach(function(mutation) {
+			if ((mutation.type === 'childList') && (mutation.addedNodes.length) && (document.webL10n.getReadyState () == 'complete')) {
+				document.webL10n.translate ();
+			}
+		});
+	});
+	observer.observe (document.querySelector ('body'), { attributes: true, childList: true, characterData: true });
 
 	// Create router and start history manager
 	this.router = new Router ();
